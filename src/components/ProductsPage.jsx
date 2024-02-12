@@ -7,15 +7,24 @@ function ProductsPage() {
   const [products, setProducts] = useState(jsonData);
 
   // Filter products
-  const filterProducts = (str) => {
-    let productsCopy;
-    if (str === "") {
-      productsCopy = [...jsonData];
-    } else {
-      productsCopy = jsonData.filter((product) => {
+  // Function filterProducts accepts two arguments
+  const filterProducts = (str, isInStock) => {
+    let productsCopy = [...jsonData];
+
+    // first filter by input string
+    if (str !== "") {
+      productsCopy = productsCopy.filter((product) => {
         return product.name.includes(str);
       });
     }
+
+    // second filter by checkbox
+    if (isInStock) {
+      productsCopy = productsCopy.filter((product) => {
+        return product.inStock;
+      });
+    }
+
     setProducts(productsCopy);
   };
 
